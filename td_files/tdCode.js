@@ -16,7 +16,6 @@ function generateGrounds(num) {
 generateGrounds(100);
 
 const lit = (e) => {
-  console.log(e.target);
   if (e.target.className === "square") {
     e.target.classList.add("lit");
   }
