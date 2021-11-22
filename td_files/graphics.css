@@ -4,6 +4,9 @@ body {
   text-align: center;
   width: 35%;
 }
+h1 {
+  font-size: 50px;
+}
 
 #console {
   flex-basis: 100%;
@@ -15,7 +18,7 @@ body {
   margin: auto;
   display: flex;
   flex-wrap: wrap;
-  padding: 200px;
+  padding: 0px 50px 400px 50px;
 }
 
 .square {
