@@ -1,19 +1,27 @@
 "use strict";
 
-function makeSquare() {
+function makeSquare(type) {
   const square = document.createElement("div");
   square.className = "square";
-  square.id = "square";
+  square.id = type;
   document.querySelector("#grounds").append(square);
 }
 
-function generateGrounds(num) {
-  for (let i = 0; i < num; i++) {
-    makeSquare();
+function generateGrounds(len) {
+  if (len % 2 !== 0) {
+    for (let i = 0; i < len ** 2; i++) {
+      if (i < len * Math.ceil(len / 2) && i >= len * Math.floor(len / 2)) {
+        makeSquare("valley");
+      } else {
+        makeSquare();
+      }
+    }
+    document.querySelector(".container").style.width = `${len * 54}px`;
+  } else {
+    alert("Please input an odd number!");
   }
-  document.querySelector(".container").style.width = `${Math.sqrt(num) * 54}px`;
 }
-generateGrounds(100);
+generateGrounds(11);
 
 const lit = (e) => {
   if (e.target.className === "square") {
@@ -25,6 +33,5 @@ const unlit = (e) => {
     e.target.classList.remove("lit");
   }
 };
-
 document.getElementById("grounds").addEventListener("mouseover", lit);
 document.getElementById("grounds").addEventListener("mouseout", unlit);
