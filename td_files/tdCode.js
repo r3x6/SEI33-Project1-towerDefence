@@ -30,7 +30,7 @@ generateGrounds(11);
 const lit = (e) => {
   if (e.target.className === "square") {
     e.target.classList.add("lit");
-    document.getElementsByClassName("lit")[0].addEventListener("click", () => {
+    const selector = () => {
       if (e.target.id !== "valley") {
         if (e.target.id !== "selection") {
           e.target.id = "selection";
@@ -38,7 +38,10 @@ const lit = (e) => {
           e.target.id = "";
         }
       }
-    });
+    };
+    document
+      .getElementsByClassName("lit")[0]
+      .addEventListener("click", selector);
   }
 };
 const unlit = (e) => {
@@ -87,7 +90,38 @@ const enemyMovement = () => {
 const interval = setInterval(enemyMovement, 20);
 
 const buildTower1 = () => {
+  const range = 3;
   const selectedTile = document.getElementById("selection");
+  selectedTile.classList.add("tower");
+  selectedTile.removeEventListener("mouseover", lit);
+  selectedTile.removeEventListener("mouseout", unlit);
+  selectedTile.style.backgroundImage = "url('towerImg.jpg')";
+  const selectedPosition = selectedTile.getBoundingClientRect();
+
+  const towerRange = document.createElement("div");
+  selectedTile.parentElement.append(towerRange);
+  towerRange.className = "towerRange";
+  towerRange.style.height = `${range * 52 * 2 + 52 - 4}px`;
+  towerRange.style.width = `${range * 52 * 2 + 52 - 4}px`;
+  towerRange.style.borderRadius = `${(range * 52 * 2 + 52 - 4) / 2}px`;
+  towerRange.style.zIndex = -1;
+  towerRange.style.top = `${
+    selectedPosition.top - (range * 52 * 2 + 52 - 4) / 2 + 24
+  }px`;
+  towerRange.style.left = `${
+    selectedPosition.left - (range * 52 * 2 + 52 - 4) / 2 + 24
+  }px`;
+
+  const showRange = () => {
+    towerRange.style.zIndex = 0;
+  };
+
+  const hideRange = () => {
+    towerRange.style.zIndex = -1;
+  };
+
+  selectedTile.addEventListener("mouseenter", showRange);
+  selectedTile.addEventListener("mouseleave", hideRange);
 };
 
 document.getElementById("build").addEventListener("click", buildTower1);
