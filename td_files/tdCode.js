@@ -30,6 +30,15 @@ generateGrounds(11);
 const lit = (e) => {
   if (e.target.className === "square") {
     e.target.classList.add("lit");
+    document.getElementsByClassName("lit")[0].addEventListener("click", () => {
+      if (e.target.id !== "valley") {
+        if (e.target.id !== "selection") {
+          e.target.id = "selection";
+        } else {
+          e.target.id = "";
+        }
+      }
+    });
   }
 };
 const unlit = (e) => {
@@ -40,7 +49,8 @@ const unlit = (e) => {
 document.getElementById("grounds").addEventListener("mouseover", lit);
 document.getElementById("grounds").addEventListener("mouseout", unlit);
 
-const rect = document.getElementById("startPt").getBoundingClientRect();
+const spawnPt = document.getElementById("startPt").getBoundingClientRect();
+const endPt = document.getElementById("endPt").getBoundingClientRect();
 
 const spawnEnemy = () => {
   const enemy = document.createElement("div");
@@ -55,9 +65,29 @@ const spawnEnemy = () => {
   enemy.append(enemyLostHp);
   enemy.append(enemySprite);
   enemy.className = "mob";
-  enemy.style.top = `${rect.y + 12}px`;
-  enemy.style.left = `${rect.x + 15}px`;
+  enemy.id = "mob";
+  enemy.style.top = `${spawnPt.y + spawnPt.height / 2 - 14}px`;
+  enemy.style.left = `${spawnPt.x + spawnPt.width / 2 - 10}px`;
 
   document.body.append(enemy);
 };
 spawnEnemy();
+
+const enemyMovement = () => {
+  const mob = document.getElementById("mob");
+  const mobLocation = mob.getBoundingClientRect();
+  const step = 1;
+  if (mobLocation.x > endPt.x) {
+    mob.style.left = `${mobLocation.x - step}px`;
+  } else {
+    mob.remove();
+    clearInterval(interval);
+  }
+};
+const interval = setInterval(enemyMovement, 20);
+
+const buildTower1 = () => {
+  const selectedTile = document.getElementById("selection");
+};
+
+document.getElementById("build").addEventListener("click", buildTower1);
