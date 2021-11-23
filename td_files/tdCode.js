@@ -79,21 +79,21 @@ const spawnEnemy = () => {
   enemy.style.left = `${spawnPt.x + spawnPt.width / 2 - 10}px`;
 
   document.body.append(enemy);
+
+  const enemyMovement = () => {
+    const mob = document.getElementById("mob");
+    const mobLocation = mob.getBoundingClientRect();
+    const step = 1;
+    if (mobLocation.x > endPt.x) {
+      mob.style.left = `${mobLocation.x - step}px`;
+    } else {
+      mob.remove();
+      clearInterval(interval);
+    }
+  };
+  const interval = setInterval(enemyMovement, 20);
 };
 spawnEnemy();
-
-const enemyMovement = () => {
-  const mob = document.getElementById("mob");
-  const mobLocation = mob.getBoundingClientRect();
-  const step = 1;
-  if (mobLocation.x > endPt.x) {
-    mob.style.left = `${mobLocation.x - step}px`;
-  } else {
-    mob.remove();
-    clearInterval(interval);
-  }
-};
-const interval = setInterval(enemyMovement, 20);
 
 const buildTower1 = () => {
   const range = 3;
