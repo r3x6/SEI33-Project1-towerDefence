@@ -95,8 +95,6 @@ const buildTower1 = () => {
   const range = 3;
   const selectedTile = document.getElementById("selection");
   selectedTile.classList.add("tower");
-  selectedTile.removeEventListener("mouseover", lit);
-  selectedTile.removeEventListener("mouseout", unlit);
   selectedTile.style.backgroundImage = "url('towerImg.jpg')";
   const selectedPosition = selectedTile.getBoundingClientRect();
 
@@ -156,34 +154,31 @@ const buildTower1 = () => {
         const dist = Math.sqrt(dx ** 2 + dy ** 2);
 
         if (dist > mobRadius) {
-          console.log(projectileLocation.y);
-          console.log(mobLocation.y);
           if (projectileLocation.y < mobLocation.y) {
             projectile.style.transform = `translate(${moveX}px,${moveY}px)`;
-            moveY += 1;
+            moveY += Math.abs(dy / dx);
           } else {
             projectile.style.transform = `translate(${moveX}px,${moveY}px)`;
-            moveY -= 1;
+            moveY -= Math.abs(dy / dx);
           }
 
           if (projectileLocation.x < mobLocation.x) {
             projectile.style.transform = `translate(${moveX}px, ${moveY}px)`;
-            moveX += 1;
-            console.log(projectile.style.transform);
+            moveX += Math.abs(dx / dy);
           } else {
             projectile.style.transform = `translate(${moveX}px,${moveY}px)`;
-            moveX -= 1;
+            moveX -= Math.abs(dx / dy);
           }
         } else {
           projectile.remove();
         }
       } else {
         clearInterval(movingProjectile);
+        projectile.remove();
       }
     };
-    const movingProjectile = setInterval(projectileMotion, 5);
+    const movingProjectile = setInterval(projectileMotion, 1);
   };
-  shoot();
 
   const withinRange = () => {
     if (document.getElementById("enemySprite") !== null) {
@@ -202,10 +197,10 @@ const buildTower1 = () => {
       const dist = Math.sqrt(dx ** 2 + dy ** 2);
 
       if (dist <= towerRadius + mobRadius) {
-        console.log("trigger tower shoot");
+        shoot();
       }
     } else clearInterval(attackInterval);
   };
-  const attackInterval = setInterval(withinRange, 100);
+  const attackInterval = setInterval(withinRange, 500);
 };
 document.getElementById("build").addEventListener("click", buildTower1);
