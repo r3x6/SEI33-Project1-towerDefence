@@ -31,7 +31,7 @@ h1 {
   width: 305px;
   height: 730px;
   margin: 0px 40px 20px 20px;
-  background-color: powderblue;
+  background-color: grey;
 }
 #status {
   float: none;
@@ -44,7 +44,6 @@ h1 {
 #money {
   flex-basis: 40px;
   height: 30px;
-  vertical-align: middle;
 }
 #gems {
   flex-basis: 40px;
