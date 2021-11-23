@@ -70,6 +70,7 @@ h1 {
 }
 #selection {
   background-color: blue;
+  border-color: red;
 }
 #build {
   height: 50px;

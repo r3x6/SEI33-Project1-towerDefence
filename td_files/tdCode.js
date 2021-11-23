@@ -64,6 +64,8 @@ const spawnEnemy = () => {
   enemyLostHp.className = "enemyLostHp";
   const enemySprite = document.createElement("div");
   enemySprite.className = "enemySprite";
+  enemySprite.id = "enemySprite";
+
   enemy.append(enemyHp);
   enemy.append(enemyLostHp);
   enemy.append(enemySprite);
@@ -99,7 +101,7 @@ const buildTower1 = () => {
   const selectedPosition = selectedTile.getBoundingClientRect();
 
   const towerRange = document.createElement("div");
-  selectedTile.parentElement.append(towerRange);
+  selectedTile.append(towerRange);
   towerRange.className = "towerRange";
   towerRange.style.height = `${range * 52 * 2 + 52 - 4}px`;
   towerRange.style.width = `${range * 52 * 2 + 52 - 4}px`;
@@ -122,6 +124,28 @@ const buildTower1 = () => {
 
   selectedTile.addEventListener("mouseenter", showRange);
   selectedTile.addEventListener("mouseleave", hideRange);
-};
 
+  const withinRange = () => {
+    const towerRadius = (range * 52 * 2 + 52 - 4) / 2;
+    const mobRadius = document.getElementById("enemySprite").style.width / 2;
+    const towerCentre = {
+      x: towerRange.getBoundingClientRect().x,
+      y: towerRange.getBoundingClientRect().y,
+    };
+    const mobLocation = {
+      x: document.getElementById("enemySprite").getBoundingClientRect().x,
+      y: document.getElementById("enemySprite").getBoundingClientRect().y,
+    };
+    const dx = towerCentre.x + towerRadius - (mobLocation.x + mobRadius);
+    const dy = towerCentre.y + towerRadius - (mobLocation.y + mobRadius);
+    const dist = Math.sqrt(dx ** 2 + dy ** 2);
+
+    if (dist <= towerRadius + mobRadius) {
+      console.log("trigger tower shoot");
+    }
+  };
+  setInterval(withinRange, 100);
+};
 document.getElementById("build").addEventListener("click", buildTower1);
+
+document.addEventListener;
