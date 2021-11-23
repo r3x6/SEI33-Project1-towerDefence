@@ -132,40 +132,56 @@ const buildTower1 = () => {
     projectile.style.top = selectedPosition.y + 26;
     projectile.style.left = selectedPosition.x + 26;
 
-    const projectileRadius = projectile.style.width / 2;
-    const projectileLocation = {
-      x: projectile.getBoundingClientRect().x,
-      y: projectile.getBoundingClientRect().y,
-    };
-    const mobRadius = document.getElementById("enemySprite").style.width / 2;
-    const mobLocation = {
-      x: document.getElementById("enemySprite").getBoundingClientRect().x,
-      y: document.getElementById("enemySprite").getBoundingClientRect().y,
-    };
-    const dx =
-      projectileLocation.x + projectileRadius - (mobLocation.x + mobRadius);
-    const dy =
-      projectileLocation.y + projectileRadius - (mobLocation.y + mobRadius);
-    const dist = Math.sqrt(dx ** 2 + dy ** 2);
+    let moveY = 5;
+    let moveX = 5;
 
     const projectileMotion = () => {
-      if (dist > mobRadius) {
-        if (projectile.style.top < mobLocation.y) {
-          projectile.style.transform = "translateY('1px')";
+      if (document.getElementById("enemySprite") !== null) {
+        const projectileRadius = projectile.getBoundingClientRect().width / 2;
+        const projectileLocation = {
+          x: projectile.getBoundingClientRect().x,
+          y: projectile.getBoundingClientRect().y,
+        };
+        const mobRadius =
+          document.getElementById("enemySprite").getBoundingClientRect().width /
+          2;
+        const mobLocation = {
+          x: document.getElementById("enemySprite").getBoundingClientRect().x,
+          y: document.getElementById("enemySprite").getBoundingClientRect().y,
+        };
+        const dx =
+          projectileLocation.x + projectileRadius - (mobLocation.x + mobRadius);
+        const dy =
+          projectileLocation.y + projectileRadius - (mobLocation.y + mobRadius);
+        const dist = Math.sqrt(dx ** 2 + dy ** 2);
+
+        if (dist > mobRadius) {
+          console.log(projectileLocation.y);
+          console.log(mobLocation.y);
+          if (projectileLocation.y < mobLocation.y) {
+            projectile.style.transform = `translate(${moveX}px,${moveY}px)`;
+            moveY += 1;
+          } else {
+            projectile.style.transform = `translate(${moveX}px,${moveY}px)`;
+            moveY -= 1;
+          }
+
+          if (projectileLocation.x < mobLocation.x) {
+            projectile.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            moveX += 1;
+            console.log(projectile.style.transform);
+          } else {
+            projectile.style.transform = `translate(${moveX}px,${moveY}px)`;
+            moveX -= 1;
+          }
         } else {
-          projectile.style.transform = "translateY('-1px')";
-        }
-        if (projectile.style.left < mobLocation.x) {
-          projectile.style.transform = "translateX('1px')";
-        } else {
-          projectile.style.transform = "translateX('-1px')";
+          projectile.remove();
         }
       } else {
         clearInterval(movingProjectile);
-        projectile.remove();
       }
     };
-    const movingProjectile = setInterval(projectileMotion, 10);
+    const movingProjectile = setInterval(projectileMotion, 5);
   };
   shoot();
 
