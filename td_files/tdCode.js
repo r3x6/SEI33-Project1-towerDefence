@@ -60,11 +60,15 @@ const spawnEnemy = () => {
   enemy.className = "enemy";
   const enemyHp = document.createElement("div");
   enemyHp.className = "enemyHp";
+  enemyHp.id = "enemyHp";
   const enemyLostHp = document.createElement("div");
   enemyLostHp.className = "enemyLostHp";
+  enemyLostHp.id = "enemyLostHp";
   const enemySprite = document.createElement("div");
   enemySprite.className = "enemySprite";
   enemySprite.id = "enemySprite";
+  enemy.setAttribute("hp", 100);
+  enemy.setAttribute("lostHp", 0);
 
   enemy.append(enemyHp);
   enemy.append(enemyLostHp);
@@ -130,8 +134,32 @@ const buildTower1 = () => {
     projectile.style.top = selectedPosition.y + 26;
     projectile.style.left = selectedPosition.x + 26;
 
+    const projectileDmg = 10;
     let moveY = 5;
     let moveX = 5;
+
+    const damageMob = () => {
+      const mobHit = document.getElementById("mob");
+      const mobHitHp = document.getElementById("enemyHp");
+      const mobHitLostHp = document.getElementById("enemyLostHp");
+
+      const currentHp = parseInt(mobHit.getAttribute("hp"));
+      const currentLostHp = parseInt(mobHit.getAttribute("lostHp"));
+      const maxHp = currentHp + currentLostHp;
+
+      const newHp = currentHp - projectileDmg;
+      if (newHp <= 0) {
+        mobHit.remove();
+        clearInterval(interval);
+      }
+      mobHit.setAttribute("hp", newHp);
+      const newLostHp = currentLostHp + projectileDmg;
+      mobHit.setAttribute("lostHp", newLostHp);
+
+      mobHitHp.style.width = `${(newHp / maxHp) * 22}px`;
+      mobHitLostHp.style.width = `${(newLostHp / maxHp) * 22}px`;
+    };
+    damageMob();
 
     const projectileMotion = () => {
       if (document.getElementById("enemySprite") !== null) {
