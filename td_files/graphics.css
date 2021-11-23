@@ -10,7 +10,8 @@ h1 {
 
 #console {
   flex-basis: 100%;
-  height: 900px;
+  height: 850px;
+  margin-top: 30px;
   border: 1px solid black;
 }
 
@@ -83,4 +84,15 @@ h1 {
   margin: 0;
   padding: 0;
   pointer-events: none;
+}
+.tower {
+}
+
+.projectile {
+  position: absolute;
+  float: none;
+  min-height: 1px;
+  height: 7px;
+  width: 7px;
+  background-color: black;
 }

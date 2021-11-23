@@ -125,27 +125,71 @@ const buildTower1 = () => {
   selectedTile.addEventListener("mouseenter", showRange);
   selectedTile.addEventListener("mouseleave", hideRange);
 
-  const withinRange = () => {
-    const towerRadius = (range * 52 * 2 + 52 - 4) / 2;
-    const mobRadius = document.getElementById("enemySprite").style.width / 2;
-    const towerCentre = {
-      x: towerRange.getBoundingClientRect().x,
-      y: towerRange.getBoundingClientRect().y,
+  const shoot = () => {
+    const projectile = document.createElement("div");
+    selectedTile.append(projectile);
+    projectile.className = "projectile";
+    projectile.style.top = selectedPosition.y + 26;
+    projectile.style.left = selectedPosition.x + 26;
+
+    const projectileRadius = projectile.style.width / 2;
+    const projectileLocation = {
+      x: projectile.getBoundingClientRect().x,
+      y: projectile.getBoundingClientRect().y,
     };
+    const mobRadius = document.getElementById("enemySprite").style.width / 2;
     const mobLocation = {
       x: document.getElementById("enemySprite").getBoundingClientRect().x,
       y: document.getElementById("enemySprite").getBoundingClientRect().y,
     };
-    const dx = towerCentre.x + towerRadius - (mobLocation.x + mobRadius);
-    const dy = towerCentre.y + towerRadius - (mobLocation.y + mobRadius);
+    const dx =
+      projectileLocation.x + projectileRadius - (mobLocation.x + mobRadius);
+    const dy =
+      projectileLocation.y + projectileRadius - (mobLocation.y + mobRadius);
     const dist = Math.sqrt(dx ** 2 + dy ** 2);
 
-    if (dist <= towerRadius + mobRadius) {
-      console.log("trigger tower shoot");
-    }
+    const projectileMotion = () => {
+      if (dist > mobRadius) {
+        if (projectile.style.top < mobLocation.y) {
+          projectile.style.transform = "translateY('1px')";
+        } else {
+          projectile.style.transform = "translateY('-1px')";
+        }
+        if (projectile.style.left < mobLocation.x) {
+          projectile.style.transform = "translateX('1px')";
+        } else {
+          projectile.style.transform = "translateX('-1px')";
+        }
+      } else {
+        clearInterval(movingProjectile);
+        projectile.remove();
+      }
+    };
+    const movingProjectile = setInterval(projectileMotion, 10);
   };
-  setInterval(withinRange, 100);
+  shoot();
+
+  const withinRange = () => {
+    if (document.getElementById("enemySprite") !== null) {
+      const towerRadius = (range * 52 * 2 + 52 - 4) / 2;
+      const mobRadius = document.getElementById("enemySprite").style.width / 2;
+      const towerCentre = {
+        x: towerRange.getBoundingClientRect().x,
+        y: towerRange.getBoundingClientRect().y,
+      };
+      const mobLocation = {
+        x: document.getElementById("enemySprite").getBoundingClientRect().x,
+        y: document.getElementById("enemySprite").getBoundingClientRect().y,
+      };
+      const dx = towerCentre.x + towerRadius - (mobLocation.x + mobRadius);
+      const dy = towerCentre.y + towerRadius - (mobLocation.y + mobRadius);
+      const dist = Math.sqrt(dx ** 2 + dy ** 2);
+
+      if (dist <= towerRadius + mobRadius) {
+        console.log("trigger tower shoot");
+      }
+    } else clearInterval(attackInterval);
+  };
+  const attackInterval = setInterval(withinRange, 100);
 };
 document.getElementById("build").addEventListener("click", buildTower1);
-
-document.addEventListener;
