@@ -43,7 +43,6 @@ h1 {
   display: flex;
   font-size: 25px;
   font-weight: bold;
-  margin-bottom: auto;
   border-radius: 10px;
 }
 
@@ -65,15 +64,29 @@ h1 {
 #descriptions {
   float: none;
   min-height: 1px;
-  width: 300px;
-  height: 100px;
-  margin-left: 12px;
+  width: 250px;
+  height: 180px;
+  padding: 20px;
+  font-size: 20px;
+  text-align: justify;
+  margin: 30px auto;
   background-color: lightsteelblue;
   border-radius: 20px;
+}
+#buildings {
+  float: none;
+  min-height: 1px;
+  width: 280px;
+  margin: 0 auto;
+  text-align: left;
+}
+#build {
+  height: 50px;
 }
 
 #bottom {
   display: block;
+  margin: auto;
 }
 
 .square {
@@ -129,9 +142,6 @@ h1 {
 #selection {
   background-color: blue;
   border-color: red;
-}
-#build {
-  height: 50px;
 }
 .towerRange {
   float: none;
