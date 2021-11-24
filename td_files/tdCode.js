@@ -81,19 +81,22 @@ const spawnEnemy = () => {
   document.body.append(enemy);
 
   const enemyMovement = () => {
-    const mob = document.getElementById("mob");
-    const mobLocation = mob.getBoundingClientRect();
-    const step = 1;
-    if (mobLocation.x > endPt.x) {
-      mob.style.left = `${mobLocation.x - step}px`;
-    } else {
-      mob.remove();
-      clearInterval(interval);
+    if (document.getElementById("mob") !== null) {
+      const mob = document.getElementById("mob");
+      const mobLocation = mob.getBoundingClientRect();
+      const step = 1;
+      if (mobLocation.x > endPt.x) {
+        mob.style.left = `${mobLocation.x + window.scrollX - step}px`;
+        console.log();
+      } else {
+        mob.remove();
+        clearInterval(enemyMoveInterval);
+      }
     }
   };
-  const interval = setInterval(enemyMovement, 20);
+  const enemyMoveInterval = setInterval(enemyMovement, 50);
 };
-spawnEnemy();
+document.getElementById("start").addEventListener("click", spawnEnemy);
 
 const buildTower1 = () => {
   const range = 3;
@@ -109,21 +112,13 @@ const buildTower1 = () => {
   towerRange.style.width = `${range * 52 * 2 + 52 - 4}px`;
   towerRange.style.borderRadius = `${(range * 52 * 2 + 52 - 4) / 2}px`;
   towerRange.style.zIndex = -1;
-  towerRange.style.top = `${
-    selectedPosition.top - (range * 52 * 2 + 52 - 4) / 2 + 24
-  }px`;
-  towerRange.style.left = `${
-    selectedPosition.left - (range * 52 * 2 + 52 - 4) / 2 + 24
-  }px`;
 
   const showRange = () => {
     towerRange.style.zIndex = 0;
   };
-
   const hideRange = () => {
     towerRange.style.zIndex = -1;
   };
-
   selectedTile.addEventListener("mouseenter", showRange);
   selectedTile.addEventListener("mouseleave", hideRange);
 
@@ -149,10 +144,8 @@ const buildTower1 = () => {
 
       const newHp = currentHp - projectileDmg;
       if (newHp <= 0) {
-        clearInterval(attackInterval);
         projectile.remove();
         mobHit.remove();
-        clearInterval(interval);
       }
       mobHit.setAttribute("hp", newHp);
       const newLostHp = currentLostHp + projectileDmg;
@@ -232,7 +225,7 @@ const buildTower1 = () => {
       ) {
         shoot();
       }
-    } else clearInterval(attackInterval);
+    }
   };
   const attackInterval = setInterval(withinRange, 500);
 };

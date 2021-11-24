@@ -125,7 +125,7 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: green;
+  background-color: #41521f;
   border: 0.5px solid #d5c7bc;
   margin: 0;
   padding: 0;
@@ -140,7 +140,7 @@ h1 {
   background-color: burlywood;
 }
 .lit {
-  background-color: yellow;
+  background-color: #cc5803;
 }
 .mob {
   position: absolute;
@@ -170,13 +170,13 @@ h1 {
   margin: 8px 0px 0px 5px;
 }
 #selection {
-  background-color: blue;
-  border-color: red;
+  background-color: #4056f4;
+  border-color: #dd1c1a;
 }
 .towerRange {
   float: none;
   min-height: 1px;
-  border: 1px solid lightgray;
+  border: 1px solid #cc5803;
   position: absolute;
   margin: 0;
   padding: 0;
