@@ -23,12 +23,15 @@ h1 {
   text-align: left;
 }
 .container {
+  position: relative;
+  overflow: hidden;
   display: flex;
   flex-wrap: wrap;
   float: left;
   margin: 0px 10px 0 40px;
 }
 #controlPanel {
+  position: relative;
   display: block;
   float: right;
   width: 324px;
@@ -97,13 +100,14 @@ h1 {
   display: flex;
   bottom: 0;
   left: 0;
-  width: inherit;
+  width: 570px;
   height: 120px;
   margin: 30px 20px 35px 40px;
   float: none;
   min-height: 1px;
   border-radius: 0 0 0 20px;
   background-color: #454545;
+  z-index: 1;
 }
 #display {
   float: none;
