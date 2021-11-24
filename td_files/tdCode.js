@@ -20,7 +20,7 @@ function generateGrounds(len) {
         makeSquare();
       }
     }
-    document.querySelector(".container").style.width = `${len * 54}px`;
+    document.querySelector(".container").style.width = `${len * 52}px`;
   } else {
     alert("Please input an odd number!");
   }
