@@ -99,7 +99,7 @@ const buildTower1 = () => {
   const range = 3;
   const selectedTile = document.getElementById("selection");
   selectedTile.classList.add("tower");
-  selectedTile.style.backgroundImage = "url('towerImg.jpg')";
+  selectedTile.style.backgroundImage = "url('images/towerImg.jpg')";
   const selectedPosition = selectedTile.getBoundingClientRect();
 
   const towerRange = document.createElement("div");
@@ -149,6 +149,8 @@ const buildTower1 = () => {
 
       const newHp = currentHp - projectileDmg;
       if (newHp <= 0) {
+        clearInterval(attackInterval);
+        projectile.remove();
         mobHit.remove();
         clearInterval(interval);
       }
@@ -224,7 +226,10 @@ const buildTower1 = () => {
       const dy = towerCentre.y + towerRadius - (mobLocation.y + mobRadius);
       const dist = Math.sqrt(dx ** 2 + dy ** 2);
 
-      if (dist <= towerRadius + mobRadius) {
+      if (
+        dist <= towerRadius + mobRadius &&
+        document.getElementById("enemySprite") !== null
+      ) {
         shoot();
       }
     } else clearInterval(attackInterval);

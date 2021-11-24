@@ -1,0 +1,16 @@
+{
+  "folders": [
+	{
+		"path": "../../../../Desktop/SEI-33"
+	},
+	{
+		"path": "../../sei-33-homework"
+	},
+	{
+		"path": ".."
+	}
+],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "SEI33-Project1-towerDefence"
+  }
+}

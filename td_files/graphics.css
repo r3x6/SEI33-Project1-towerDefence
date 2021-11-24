@@ -23,39 +23,53 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   float: left;
-  padding: 0px 20px 20px 40px;
+  padding: 0px 10px 20px 40px;
 }
 #controlPanel {
   display: block;
   float: right;
-  width: 305px;
+  width: 324px;
   height: 730px;
-  margin: 0px 40px 20px 20px;
-  background-color: grey;
+  margin: 0px 40px 20px 10px;
+  background-color: beige;
+  text-align: center;
+  border-radius: 30px;
 }
 #status {
   float: none;
   background-color: white;
   min-height: 1px;
-  height: 50px;
+  height: 120px;
   display: flex;
-  font-size: 30px;
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: auto;
+  border-radius: 10px;
 }
-#money {
-  flex-basis: 40px;
-  height: 30px;
-}
-#gems {
-  flex-basis: 40px;
-  height: 30px;
-}
-#health {
-  flex-basis: 40px;
-  height: 30px;
-}
+
+#money,
+#gems,
+#health,
 #score {
-  flex-basis: 40px;
-  height: 30px;
+  text-align: center;
+  flex-basis: 35px;
+  height: 120px;
+  padding: 0 2px;
+  border: 0.5px solid black;
+  border-radius: 10px;
+}
+.statusThumbs {
+  border-bottom: 0.5px solid black;
+  border-radius: 10px;
+}
+#descriptions {
+  float: none;
+  min-height: 1px;
+  width: 300px;
+  height: 100px;
+  margin-left: 12px;
+  background-color: lightsteelblue;
+  border-radius: 20px;
 }
 
 #bottom {
