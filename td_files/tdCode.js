@@ -63,24 +63,21 @@ const spawnEnemy = () => {
   const spawnPt = document.getElementById("startPt").getBoundingClientRect();
 
   const enemy = document.createElement("div");
-  enemy.className = "enemy";
+  enemy.className = "mob";
+  enemy.id = `mob${totalEnemyCount}`;
   const enemyHp = document.createElement("div");
   enemyHp.className = "enemyHp";
-  enemyHp.id = "enemyHp";
   const enemyLostHp = document.createElement("div");
   enemyLostHp.className = "enemyLostHp";
-  enemyLostHp.id = "enemyLostHp";
   const enemySprite = document.createElement("div");
   enemySprite.className = "enemySprite";
-  enemySprite.id = "enemySprite";
-  enemy.setAttribute("hp", 1000);
+  enemy.setAttribute("hp", 200);
   enemy.setAttribute("lostHp", 0);
 
   enemy.append(enemyHp);
   enemy.append(enemyLostHp);
   enemy.append(enemySprite);
-  enemy.className = "mob";
-  enemy.id = "mob";
+
   enemy.style.top = `${spawnPt.y + spawnPt.height / 2 + window.scrollY - 14}px`;
   enemy.style.left = `${spawnPt.x + spawnPt.width / 2 + window.scrollX - 10}px`;
 
@@ -101,7 +98,7 @@ const spawnEnemy = () => {
       }
     }
   };
-  const enemyMoveInterval = setInterval(enemyMovement, 30);
+  const enemyMoveInterval = setInterval(enemyMovement, 60);
 };
 
 document.getElementById("start").addEventListener("click", spawnEnemy);
@@ -130,6 +127,48 @@ const buildTower1 = () => {
   selectedTile.addEventListener("mouseenter", showRange);
   selectedTile.addEventListener("mouseleave", hideRange);
 
+  const findTarget = () => {
+    const towerRadius = (range * 52 * 2 + 52 - 4) / 2;
+    const allEnemyList = document.getElementsByClassName("mob");
+
+    if (allEnemyList.length === 0) {
+      return null;
+    } else {
+      let enemyList = [];
+
+      for (let enemy of allEnemyList) {
+        const enemyRect = enemy.children[2].getBoundingClientRect();
+        const enemyRadius = enemyRect.width / 2;
+
+        const towerCentre = {
+          x: towerRange.getBoundingClientRect().x,
+          y: towerRange.getBoundingClientRect().y,
+        };
+        const enemyLocation = {
+          x: enemyRect.x,
+          y: enemyRect.y,
+        };
+        const dx =
+          towerCentre.x + towerRadius - (enemyLocation.x + enemyRadius);
+        const dy =
+          towerCentre.y + towerRadius - (enemyLocation.y + enemyRadius);
+        const dist = Math.sqrt(dx ** 2 + dy ** 2);
+        if (dist <= towerRadius + enemyRadius) {
+          const potentialTarget = { id: `${enemy.id}`, dist: `${dist}` };
+          enemyList.push(potentialTarget);
+        }
+      }
+      if (enemyList.length === 0) {
+        return null;
+      } else {
+        const target = document.getElementById(
+          enemyList.sort((a, b) => (a.dist < b.dist ? a : b))[0].id
+        );
+        return target;
+      }
+    }
+  };
+
   const shoot = () => {
     const projectile = document.createElement("div");
     selectedTile.append(projectile);
@@ -142,18 +181,17 @@ const buildTower1 = () => {
     let moveX = 5;
 
     const projectileMotion = () => {
-      if (document.getElementById("enemySprite") !== null) {
+      if (findTarget() !== null) {
         const projectileRadius = projectile.getBoundingClientRect().width / 2;
         const projectileLocation = {
           x: projectile.getBoundingClientRect().x,
           y: projectile.getBoundingClientRect().y,
         };
         const mobRadius =
-          document.getElementById("enemySprite").getBoundingClientRect().width /
-          2;
+          findTarget().children[2].getBoundingClientRect().width / 2;
         const mobLocation = {
-          x: document.getElementById("enemySprite").getBoundingClientRect().x,
-          y: document.getElementById("enemySprite").getBoundingClientRect().y,
+          x: findTarget().children[2].getBoundingClientRect().x,
+          y: findTarget().children[2].getBoundingClientRect().y,
         };
         const dx =
           projectileLocation.x + projectileRadius - (mobLocation.x + mobRadius);
@@ -185,12 +223,12 @@ const buildTower1 = () => {
         projectile.remove();
       }
     };
-    const movingProjectile = setInterval(projectileMotion, 2);
+    const movingProjectile = setInterval(projectileMotion, 1);
 
     const damageMob = () => {
-      const mobHit = document.getElementById("mob");
-      const mobHitHp = document.getElementById("enemyHp");
-      const mobHitLostHp = document.getElementById("enemyLostHp");
+      const mobHit = findTarget();
+      const mobHitHp = findTarget().children[0];
+      const mobHitLostHp = findTarget().children[1];
 
       const currentHp = parseInt(mobHit.getAttribute("hp"));
       const currentLostHp = parseInt(mobHit.getAttribute("lostHp"));
@@ -212,25 +250,22 @@ const buildTower1 = () => {
   };
 
   const withinRange = () => {
-    if (document.getElementById("enemySprite") !== null) {
+    if (findTarget() !== null) {
       const towerRadius = (range * 52 * 2 + 52 - 4) / 2;
-      const mobRadius = document.getElementById("enemySprite").style.width / 2;
+      const mobRadius = findTarget().children[2].style.width / 2;
       const towerCentre = {
         x: towerRange.getBoundingClientRect().x,
         y: towerRange.getBoundingClientRect().y,
       };
       const mobLocation = {
-        x: document.getElementById("enemySprite").getBoundingClientRect().x,
-        y: document.getElementById("enemySprite").getBoundingClientRect().y,
+        x: findTarget().children[2].getBoundingClientRect().x,
+        y: findTarget().children[2].getBoundingClientRect().y,
       };
       const dx = towerCentre.x + towerRadius - (mobLocation.x + mobRadius);
       const dy = towerCentre.y + towerRadius - (mobLocation.y + mobRadius);
       const dist = Math.sqrt(dx ** 2 + dy ** 2);
 
-      if (
-        dist <= towerRadius + mobRadius &&
-        document.getElementById("enemySprite") !== null
-      ) {
+      if (dist <= towerRadius + mobRadius && findTarget() !== null) {
         shoot();
       }
     }
