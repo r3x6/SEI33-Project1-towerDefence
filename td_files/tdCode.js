@@ -31,7 +31,11 @@ const lit = (e) => {
   if (e.target.className === "square") {
     e.target.classList.add("lit");
     const selector = () => {
-      if (e.target.id !== "valley") {
+      if (
+        e.target.id !== "valley" &&
+        e.target.id !== "startPt" &&
+        e.target.id !== "endPt"
+      ) {
         if (e.target.id !== "selection") {
           e.target.id = "selection";
         } else {
@@ -52,10 +56,12 @@ const unlit = (e) => {
 document.getElementById("grounds").addEventListener("mouseover", lit);
 document.getElementById("grounds").addEventListener("mouseout", unlit);
 
-const spawnPt = document.getElementById("startPt").getBoundingClientRect();
-const endPt = document.getElementById("endPt").getBoundingClientRect();
+let totalEnemyCount = 0;
 
 const spawnEnemy = () => {
+  totalEnemyCount += 1;
+  const spawnPt = document.getElementById("startPt").getBoundingClientRect();
+
   const enemy = document.createElement("div");
   enemy.className = "enemy";
   const enemyHp = document.createElement("div");
@@ -67,7 +73,7 @@ const spawnEnemy = () => {
   const enemySprite = document.createElement("div");
   enemySprite.className = "enemySprite";
   enemySprite.id = "enemySprite";
-  enemy.setAttribute("hp", 100);
+  enemy.setAttribute("hp", 1000);
   enemy.setAttribute("lostHp", 0);
 
   enemy.append(enemyHp);
@@ -75,27 +81,29 @@ const spawnEnemy = () => {
   enemy.append(enemySprite);
   enemy.className = "mob";
   enemy.id = "mob";
-  enemy.style.top = `${spawnPt.y + spawnPt.height / 2 - 14}px`;
-  enemy.style.left = `${spawnPt.x + spawnPt.width / 2 - 10}px`;
+  enemy.style.top = `${spawnPt.y + spawnPt.height / 2 + window.scrollY - 14}px`;
+  enemy.style.left = `${spawnPt.x + spawnPt.width / 2 + window.scrollX - 10}px`;
 
   document.body.append(enemy);
 
   const enemyMovement = () => {
-    if (document.getElementById("mob") !== null) {
-      const mob = document.getElementById("mob");
-      const mobLocation = mob.getBoundingClientRect();
+    const endPt = document.getElementById("endPt").getBoundingClientRect();
+
+    if (enemy !== null) {
+      const mobLocation = enemy.getBoundingClientRect();
       const step = 1;
-      if (mobLocation.x > endPt.x) {
-        mob.style.left = `${mobLocation.x + window.scrollX - step}px`;
+      if (mobLocation.left + window.scrollX > endPt.left + window.scrollX) {
+        enemy.style.left = `${mobLocation.x + window.scrollX - step}px`;
         console.log();
       } else {
-        mob.remove();
+        enemy.remove();
         clearInterval(enemyMoveInterval);
       }
     }
   };
-  const enemyMoveInterval = setInterval(enemyMovement, 50);
+  const enemyMoveInterval = setInterval(enemyMovement, 30);
 };
+
 document.getElementById("start").addEventListener("click", spawnEnemy);
 
 const buildTower1 = () => {
@@ -132,29 +140,6 @@ const buildTower1 = () => {
     const projectileDmg = 10;
     let moveY = 5;
     let moveX = 5;
-
-    const damageMob = () => {
-      const mobHit = document.getElementById("mob");
-      const mobHitHp = document.getElementById("enemyHp");
-      const mobHitLostHp = document.getElementById("enemyLostHp");
-
-      const currentHp = parseInt(mobHit.getAttribute("hp"));
-      const currentLostHp = parseInt(mobHit.getAttribute("lostHp"));
-      const maxHp = currentHp + currentLostHp;
-
-      const newHp = currentHp - projectileDmg;
-      if (newHp <= 0) {
-        projectile.remove();
-        mobHit.remove();
-      }
-      mobHit.setAttribute("hp", newHp);
-      const newLostHp = currentLostHp + projectileDmg;
-      mobHit.setAttribute("lostHp", newLostHp);
-
-      mobHitHp.style.width = `${(newHp / maxHp) * 22}px`;
-      mobHitLostHp.style.width = `${(newLostHp / maxHp) * 22}px`;
-    };
-    damageMob();
 
     const projectileMotion = () => {
       if (document.getElementById("enemySprite") !== null) {
@@ -200,7 +185,30 @@ const buildTower1 = () => {
         projectile.remove();
       }
     };
-    const movingProjectile = setInterval(projectileMotion, 1);
+    const movingProjectile = setInterval(projectileMotion, 2);
+
+    const damageMob = () => {
+      const mobHit = document.getElementById("mob");
+      const mobHitHp = document.getElementById("enemyHp");
+      const mobHitLostHp = document.getElementById("enemyLostHp");
+
+      const currentHp = parseInt(mobHit.getAttribute("hp"));
+      const currentLostHp = parseInt(mobHit.getAttribute("lostHp"));
+      const maxHp = currentHp + currentLostHp;
+
+      const newHp = currentHp - projectileDmg;
+      if (newHp <= 0) {
+        projectile.remove();
+        mobHit.remove();
+      }
+      mobHit.setAttribute("hp", newHp);
+      const newLostHp = currentLostHp + projectileDmg;
+      mobHit.setAttribute("lostHp", newLostHp);
+
+      mobHitHp.style.width = `${(newHp / maxHp) * 22}px`;
+      mobHitLostHp.style.width = `${(newLostHp / maxHp) * 22}px`;
+    };
+    damageMob();
   };
 
   const withinRange = () => {
@@ -227,6 +235,7 @@ const buildTower1 = () => {
       }
     }
   };
-  const attackInterval = setInterval(withinRange, 500);
+  setInterval(withinRange, 500);
+  selectedTile.id = "";
 };
 document.getElementById("build").addEventListener("click", buildTower1);

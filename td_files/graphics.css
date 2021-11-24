@@ -1,8 +1,10 @@
 body {
   margin: auto;
   display: flex;
-  width: 40%;
+  max-height: fit-content;
+  width: fit-content;
   font-family: "Courier New", Courier, monospace;
+  overflow: hidden;
 }
 #console {
   flex-basis: 100%;
