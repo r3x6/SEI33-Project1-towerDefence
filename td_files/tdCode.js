@@ -6,7 +6,6 @@ function makeSquare(type) {
   square.id = type;
   document.querySelector("#grounds").append(square);
 }
-
 function generateGrounds(len) {
   if (len % 2 !== 0) {
     for (let i = 1; i <= len ** 2; i++) {
@@ -44,7 +43,6 @@ generateGrounds(11);
 
 const arrowTowerCost = 15;
 const arrowTowerRange = 2;
-
 const cannonTowerCost = 25;
 const cannonTowerRange = 3;
 
@@ -56,6 +54,7 @@ let enemySpeed = 41;
 let enemyHealth = 100;
 let enemyFreq = 1210;
 let interest = 10;
+let totalEnemyCount = 0;
 
 const mouseoverArrow = () => {
   const descriptionBox = document.getElementById("descriptions");
@@ -226,8 +225,6 @@ const unlit = (e) => {
 };
 document.getElementById("grounds").addEventListener("mouseover", lit);
 document.getElementById("grounds").addEventListener("mouseout", unlit);
-
-let totalEnemyCount = 0;
 
 const spawnWave = () => {
   waveNum += 1;

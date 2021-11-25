@@ -2,7 +2,6 @@ html {
   height: 100%;
   overflow: hidden;
 }
-
 body {
   margin: auto;
   display: flex;
@@ -12,7 +11,6 @@ body {
   height: 100%;
   overflow: hidden;
 }
-
 #console {
   flex-basis: 100%;
   height: max-content;
@@ -23,7 +21,6 @@ body {
   border-radius: 50px;
   position: relative;
 }
-
 h1 {
   font-size: 40px;
   color: #785964;
@@ -39,7 +36,6 @@ h1 {
   border-radius: 50px;
   position: relative;
 }
-
 #left {
   position: relative;
   width: min-content;
@@ -48,7 +44,6 @@ h1 {
   flex-wrap: wrap;
   float: left;
 }
-
 .container {
   flex-basis: 1;
   position: relative;
@@ -57,6 +52,7 @@ h1 {
   flex-wrap: wrap;
   float: left;
 }
+
 #controlPanel {
   position: relative;
   display: block;
@@ -96,7 +92,6 @@ h1 {
   height: 20px;
   margin: 0;
 }
-
 #money {
   border-radius: 10px 0 0 10px;
 }
@@ -125,6 +120,7 @@ h1 {
   color: #d64045;
   font-weight: normal;
 }
+
 #consoleHeadings {
   text-align: left;
   margin: 20px;
@@ -203,6 +199,8 @@ h1 {
   font-weight: bold;
   font-size: 50px;
 }
+
+/* JS Spawns */
 .square {
   height: 50px;
   flex-basis: 50px;
