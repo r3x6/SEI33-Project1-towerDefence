@@ -15,7 +15,12 @@
           <div id="grounds" class="container"></div>
 
           <div id="bottom">
-            <div id="display">Welcome to td.js!</div>
+            <div id="display">
+              Welcome to td.js!<br /><br />
+              Kill enemies for money for buildings!<br />
+              Clear enemy waves for gems for research!<br /><br />
+              Good Luck!
+            </div>
             <div id="buttonBox">
               <button id="start">▶</button>
               <button id="pause">| |</button>
@@ -26,27 +31,31 @@
         <div id="controlPanel">
           <div id="status">
             <div id="money">
-              <img class="statusThumbs" src="images/moneyImg.jpeg" />20
+              <img class="statusThumbs" src="images/moneyImg.jpeg" />
+              <p id="moneyInt">50</p>
             </div>
             <div id="gems">
-              <img class="statusThumbs" src="images/gemImg.jpeg" />0
+              <img class="statusThumbs" src="images/gemImg.jpeg" />
+              <p id="gemInt">5</p>
             </div>
             <div id="health">
-              <img class="statusThumbs" src="images/healthImg.jpeg" />20
+              <img class="statusThumbs" src="images/healthImg.jpeg" />
+              <p id="healthInt">10</p>
             </div>
             <div id="score">
-              <img class="statusThumbs" src="images/scoreImg.jpeg" />0
+              <img class="statusThumbs" src="images/scoreImg.jpeg" />
+              <p id="scoreInt">0</p>
             </div>
           </div>
           <div id="descriptions">
             Hover over the objects to see its details.
           </div>
-          <p>Buildings</p>
+          <p id="consoleHeadings">Buildings</p>
           <div id="buildings">
-            <button id="build"></button>
+            <button id="buildArrow"></button>
             <button id="buildCannon"></button>
           </div>
-          <p>Research</p>
+          <p id="consoleHeadings">Research</p>
           <div id="research">
             <button id="interest"></button>
             <button id="cost"></button>
