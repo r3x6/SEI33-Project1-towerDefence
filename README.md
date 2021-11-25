@@ -4,9 +4,9 @@ Hi, this is Rex, the creator of this mini tower defence project.
 
 The project is made with the of learning and exploring the possibilities of js, css & html working tgt in conjunction.
 
-The constrains are that no addition libraries should be used and that only vanilla js is allowed.
+The constrains are that no additional libraries should be used and that only vanilla js is allowed.
 
-I have modeled this tower defence (td) game after one of my favourite childhood games, "Flash Element TD", which is now developed into "Element TD 2", which is available on steam.
+I have modeled this tower defence (td) game after one of my favourite childhood games, "Flash Element TD", which has now developed into "Element TD 2", and is available on steam.
 
 Do note that while the game works in general, there are existing issues to be resolved, which includes:
 - Wonky projectile arcs and motions
