@@ -24,6 +24,7 @@ Furthermore, there's been ideas that I was lacking in ability to implement in my
 - Creating a path-finding system for the spawned enemies (the current one is hardcoded to the preset layout)
 - Including a greater variety of towers
 - Air enemies that can bypass terrain
+- Allow towers to be dragged into the map for deployment
 
 With regards to the gameplay, tower defence is a real-time strategy game where waves of enemies are spawned every round (starts with clicking the play button), and your goal is to manage your gold and other resources to build the right towers at the right locations, ensuring that no enemies will be able to reach your base (in this case, your castle).
 
