@@ -17,6 +17,7 @@ Do note that while the game works in general, there are existing issues to be re
 - and many more, do let me know if you find any other pressing issues
 
 
+
 Furthermore, there's been ideas that I was lacking in ability to implement in my 4 days of coding this project, which includes:
 - Generation of an X by X grid up to the player's choice
 - Generation of a randomised maze, making use of some maze algorithm
