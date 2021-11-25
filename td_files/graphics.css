@@ -4,31 +4,56 @@ body {
   max-height: fit-content;
   width: fit-content;
   font-family: "Courier New", Courier, monospace;
-  overflow: hidden;
 }
+p {
+  text-align: left;
+  margin: 20px;
+  font-weight: bold;
+}
+
 #console {
   flex-basis: 100%;
-  height: 850px;
-  margin-top: 20px;
+  height: max-content;
+  display: block;
+  padding: 40px 60px;
   background-color: #93b7be;
   border: 1px solid black;
   border-radius: 50px;
   position: relative;
 }
+
 h1 {
   font-size: 40px;
   color: #785964;
-  margin: 30px 20px 20px 50px;
+  margin: 0 0 20px 10px;
   font-weight: bold;
   text-align: left;
 }
+
+#belowHeading {
+  height: fit-content;
+  display: flex;
+  background-color: #93b7be;
+  border-radius: 50px;
+  position: relative;
+}
+
+#left {
+  position: relative;
+  width: min-content;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  float: left;
+}
+
 .container {
+  flex-basis: 1;
   position: relative;
   overflow: hidden;
   display: flex;
   flex-wrap: wrap;
   float: left;
-  margin: 0px 10px 0 40px;
 }
 #controlPanel {
   position: relative;
@@ -36,7 +61,7 @@ h1 {
   float: right;
   width: 324px;
   height: 730px;
-  margin: 0px 40px 20px 10px;
+  margin: 0 0 0 40px;
   background-color: #f1fffa;
   text-align: center;
   border-radius: 30px;
@@ -67,11 +92,11 @@ h1 {
 #score {
   border-radius: 0 10px 10px 0;
 }
-
 .statusThumbs {
   border-bottom: 0.5px solid black;
   border-radius: 10px;
 }
+
 #descriptions {
   float: none;
   min-height: 1px;
@@ -79,7 +104,7 @@ h1 {
   height: 180px;
   padding: 20px;
   font-size: 20px;
-  text-align: justify;
+  text-align: left;
   margin: 30px auto;
   background-color: #d5c7bc;
   border-radius: 20px;
@@ -88,26 +113,57 @@ h1 {
   float: none;
   min-height: 1px;
   width: 280px;
-  margin: 0 auto;
+  margin: 0px auto 70px auto;
   text-align: left;
 }
 #build {
-  height: 50px;
+  height: 55px;
+  width: 55px;
+  background-image: url(images/towerImg.jpg);
+  border: 1px solid #7d4f50;
+}
+#buildCannon {
+  height: 55px;
+  width: 55px;
+  background-image: url(images/cannonImg.png);
+  border: 1px solid #7d4f50;
+}
+
+#research {
+  float: none;
+  min-height: 1px;
+  width: 280px;
+  margin: 0px auto 70px auto;
+  text-align: left;
+}
+#interest {
+  height: 55px;
+  width: 55px;
+  background-image: url(images/interestImg.png);
+  border: 1px solid #7d4f50;
+}
+#cost {
+  height: 55px;
+  width: 55px;
+  background-image: url(images/costDownImg.jpg);
+  border: 1px solid #7d4f50;
+}
+#range {
+  height: 55px;
+  width: 55px;
+  background-image: url(images/rangeUpImg.jpg);
+  border: 1px solid #7d4f50;
 }
 
 #bottom {
-  position: absolute;
   display: flex;
-  bottom: 0;
-  left: 0;
   width: 570px;
-  height: 120px;
-  margin: 30px 20px 35px 40px;
+  height: 150px;
+  margin: 30px 0 0 0;
   float: none;
   min-height: 1px;
   border-radius: 0 0 0 20px;
   background-color: #454545;
-  z-index: 1;
 }
 #display {
   float: none;
@@ -124,6 +180,7 @@ h1 {
 #pause {
   width: 100%;
   height: 50%;
+  font-weight: bold;
 }
 .square {
   height: 50px;

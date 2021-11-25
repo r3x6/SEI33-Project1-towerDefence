@@ -9,35 +9,53 @@
   <body>
     <div id="console">
       <h1>td.js</h1>
-      <div id="grounds" class="container"></div>
-      <div id="controlPanel">
-        <div id="status">
-          <div id="money">
-            <img class="statusThumbs" src="images/moneyImg.jpeg" />20
-          </div>
-          <div id="gems">
-            <img class="statusThumbs" src="images/gemImg.jpeg" />0
-          </div>
-          <div id="health">
-            <img class="statusThumbs" src="images/healthImg.jpeg" />20
-          </div>
-          <div id="score">
-            <img class="statusThumbs" src="images/scoreImg.jpeg" />0
+
+      <div id="belowHeading">
+        <div id="left">
+          <div id="grounds" class="container"></div>
+
+          <div id="bottom">
+            <div id="display">Welcome to td.js!</div>
+            <div id="buttonBox">
+              <button id="start">▶</button>
+              <button id="pause">| |</button>
+            </div>
           </div>
         </div>
-        <div id="descriptions">Hover over the tower to see its details.</div>
-        <div id="buildings">
-          <button id="build">Build Tower</button>
-        </div>
-      </div>
-      <div id="bottom">
-        <div id="display">Welcome to td.js!</div>
-        <div id="buttonBox">
-          <button id="start">▶</button>
-          <button id="pause">| |</button>
+
+        <div id="controlPanel">
+          <div id="status">
+            <div id="money">
+              <img class="statusThumbs" src="images/moneyImg.jpeg" />20
+            </div>
+            <div id="gems">
+              <img class="statusThumbs" src="images/gemImg.jpeg" />0
+            </div>
+            <div id="health">
+              <img class="statusThumbs" src="images/healthImg.jpeg" />20
+            </div>
+            <div id="score">
+              <img class="statusThumbs" src="images/scoreImg.jpeg" />0
+            </div>
+          </div>
+          <div id="descriptions">
+            Hover over the objects to see its details.
+          </div>
+          <p>Buildings</p>
+          <div id="buildings">
+            <button id="build"></button>
+            <button id="buildCannon"></button>
+          </div>
+          <p>Research</p>
+          <div id="research">
+            <button id="interest"></button>
+            <button id="cost"></button>
+            <button id="range"></button>
+          </div>
         </div>
       </div>
     </div>
+
     <script src="tdCode.js" async defer></script>
   </body>
 </html>

@@ -20,12 +20,50 @@ function generateGrounds(len) {
         makeSquare();
       }
     }
-    document.querySelector(".container").style.width = `${len * 52}px`;
+    document.querySelector("#grounds").style.width = `${len * 52}px`;
   } else {
     alert("Please input an odd number!");
   }
 }
 generateGrounds(11);
+
+const mouseoverTower = () => {
+  const descriptionBox = document.getElementById("descriptions");
+  descriptionBox.style.color = "#cc5803";
+  descriptionBox.style.fontWeight = "bold";
+
+  descriptionBox.innerHTML =
+    "Arrow Tower [$ 5]<br /><br />Does low damage but fast fire rate";
+};
+const mouseoutTower = () => {
+  const descriptionBox = document.getElementById("descriptions");
+  descriptionBox.style.color = "white";
+  descriptionBox.style.fontWeight = "normal";
+  descriptionBox.innerText = "Hover over the objects to see its details.";
+};
+document.getElementById("build").addEventListener("mouseover", mouseoverTower);
+document.getElementById("build").addEventListener("mouseout", mouseoutTower);
+
+const mouseoverCannon = () => {
+  const descriptionBox = document.getElementById("descriptions");
+  descriptionBox.style.color = "#cc5803";
+  descriptionBox.style.fontWeight = "bold";
+
+  descriptionBox.innerHTML =
+    "Cannon Tower [$ 8]<br /><br />Does splash damage to a small area but slower fire rate";
+};
+const mouseoutCannon = () => {
+  const descriptionBox = document.getElementById("descriptions");
+  descriptionBox.style.color = "white";
+  descriptionBox.style.fontWeight = "normal";
+  descriptionBox.innerText = "Hover over the objects to see its details.";
+};
+document
+  .getElementById("buildCannon")
+  .addEventListener("mouseover", mouseoverCannon);
+document
+  .getElementById("buildCannon")
+  .addEventListener("mouseout", mouseoutCannon);
 
 const lit = (e) => {
   if (e.target.className === "square") {
