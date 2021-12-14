@@ -228,13 +228,15 @@ document.getElementById("grounds").addEventListener("mouseout", unlit);
 
 const spawnWave = () => {
   waveNum += 1;
-  enemySpeed -= 1;
-  enemyHealth += 20;
-  enemyFreq -= 10;
+  enemySpeed -= 2;
+  enemyHealth += 100;
+  enemyFreq -= 40;
   const display = document.getElementById("display");
   display.innerHTML = `Current wave: ${waveNum}<br /><br />Number of mobs: ${
     waveNum + 4
-  }<br />Mob Hp: ${enemyHealth}<br />$$ per mob: ${enemyHealth / 20}`;
+  }<br />Mob Hp: ${enemyHealth}<br />$$ per mob: ${Math.ceil(
+    enemyHealth / 60
+  )}`;
 
   const spawnEnemy = () => {
     totalEnemyCount += 1;
@@ -251,7 +253,7 @@ const spawnWave = () => {
     enemySprite.className = "enemySprite";
     enemy.setAttribute("hp", `${enemyHealth}`);
     enemy.setAttribute("lostHp", 0);
-    enemy.setAttribute("gold", `${enemyHealth / 20}`);
+    enemy.setAttribute("gold", `${Math.ceil(enemyHealth / 60)}`);
 
     enemy.append(enemyHp);
     enemy.append(enemyLostHp);
@@ -305,10 +307,8 @@ const spawnWave = () => {
           enemy.remove();
           clearInterval(enemyMoveInterval);
 
-          const towerDmgSound = document.createElement("AUDIO");
-          towerDmgSound.setAttribute("src", "audio/castleDmgSound.mp3");
-          document.body.append(towerDmgSound);
-          towerDmgSound.play();
+          const castleDmgSound = document.getElementById("castleDmgSound");
+          castleDmgSound.play();
 
           let hp = document.getElementById("healthInt").innerText;
           const currentHp = parseInt(hp);
@@ -350,9 +350,7 @@ const spawnWave = () => {
               interest + interestLvl * 10
             }% interest of $${interestAmt} was earned!<br />1 gem earned!<br /><br />Click play to start next wave!`;
 
-            const waveEndSound = document.createElement("AUDIO");
-            waveEndSound.setAttribute("src", "audio/waveEndSound.mp3");
-            document.body.append(waveEndSound);
+            const waveEndSound = document.getElementById("waveEndSound");
             waveEndSound.play();
 
             clearInterval(waveEnd);
@@ -441,9 +439,7 @@ const buildArrow = () => {
     };
 
     const shoot = () => {
-      const arrowSound = document.createElement("AUDIO");
-      arrowSound.setAttribute("src", "audio/arrowSound.mp3");
-      document.body.append(arrowSound);
+      const arrowSound = document.getElementById("arrowSound");
       arrowSound.play();
 
       const projectile = document.createElement("div");
@@ -457,9 +453,7 @@ const buildArrow = () => {
       let moveX = 1;
 
       const damageMob = () => {
-        const mobHitSound = document.createElement("AUDIO");
-        mobHitSound.setAttribute("src", "audio/mobHitSound.mp3");
-        document.body.append(mobHitSound);
+        const mobHitSound = document.getElementById("mobHitSound");
         mobHitSound.play();
 
         const mobHit = findTarget();
@@ -484,9 +478,8 @@ const buildArrow = () => {
             currentScore + mobGold;
 
           mobHit.remove();
-          const mobDeathSound = document.createElement("AUDIO");
-          mobDeathSound.setAttribute("src", "audio/mobDeathSound.mp3");
-          document.body.append(mobDeathSound);
+
+          const mobDeathSound = document.getElementById("mobDeathSound");
           mobDeathSound.play();
         }
         mobHit.setAttribute("hp", newHp);
@@ -650,9 +643,7 @@ const buildCannon = () => {
     };
 
     const shoot = () => {
-      const cannonSound = document.createElement("AUDIO");
-      cannonSound.setAttribute("src", "audio/cannonSound.mp3");
-      document.body.append(cannonSound);
+      const cannonSound = document.getElementById("cannonSound");
       cannonSound.play();
 
       const projectile = document.createElement("div");
@@ -666,9 +657,7 @@ const buildCannon = () => {
       let moveX = 1;
 
       const damageMob = (enemy) => {
-        const mobHitSound = document.createElement("AUDIO");
-        mobHitSound.setAttribute("src", "audio/mobHitSound.mp3");
-        document.body.append(mobHitSound);
+        const mobHitSound = document.getElementById("mobHitSound");
         mobHitSound.play();
 
         const mobHit = enemy;
@@ -693,9 +682,8 @@ const buildCannon = () => {
             currentScore + mobGold;
 
           mobHit.remove();
-          const mobDeathSound = document.createElement("AUDIO");
-          mobDeathSound.setAttribute("src", "audio/mobDeathSound.mp3");
-          document.body.append(mobDeathSound);
+
+          const mobDeathSound = document.getElementById("mobDeathSound");
           mobDeathSound.play();
         }
         mobHit.setAttribute("hp", newHp);
